@@ -1,8 +1,8 @@
 module Prawn
   module Graph
     module ChartComponents
-      # The Prawn::Graph::ChartComponents::BarChartRenderer is used to plot one or more bar charts 
-      # in a sensible way on a a Prawn::Graph::ChartComponents::Canvas and its associated 
+      # The Prawn::Graph::ChartComponents::BarChartRenderer is used to plot one or more bar charts
+      # in a sensible way on a a Prawn::Graph::ChartComponents::Canvas and its associated
       # Prawn::Document.
       #
       class BarChartRenderer < SeriesRenderer
@@ -41,8 +41,8 @@ module Prawn
 
         def render_the_chart
           prawn.bounding_box [@graph_area.point[0] + 5, @graph_area.point[1] - 20], width: @plot_area_width, height: @plot_area_height do
-         
-            prawn.save_graphics_state do  
+
+            prawn.save_graphics_state do
               num_points        = @series[0].size
               width_per_point   = (@plot_area_width / num_points)
               width             = (((width_per_point * 0.9) / @series.size).round(2)).to_f
@@ -60,7 +60,7 @@ module Prawn
                   starting = (prawn.bounds.left + (point * width_per_point))
 
                   x_position = ( (starting + (series_offset * width) ).to_f - (width / 2.0))
-                  y_position = ((point_height_percentage(@series[series_index].values[point]) * @plot_area_height) - 5).to_f
+                  y_position = (point_height_percentage(@series[series_index].values[point]) * @plot_area_height).to_f
 
                   prawn.fill_and_stroke_line([ x_position ,0], [x_position ,y_position]) unless @series[series_index].values[point].zero?
 
@@ -76,7 +76,7 @@ module Prawn
           end
         end
 
-        def max 
+        def max
           @series.collect(&:max).max || 0
         end
 
