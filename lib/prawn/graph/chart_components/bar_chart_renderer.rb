@@ -77,11 +77,11 @@ module Prawn
         end
 
         def max
-          @series.collect(&:max).max || 0
+          @series.map(&:max).compact.max || 0
         end
 
         def min
-          @series.collect(&:min).min || 0
+          @series.map(&:min).compact.min || 0
         end
 
         def avg
