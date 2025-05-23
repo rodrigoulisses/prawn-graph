@@ -48,6 +48,7 @@ module Prawn
               width             = (((width_per_point * 0.9) / @series.size).round(2)).to_f
               min_marked        = false
               max_marked        = false
+              min_height        = 2
 
               num_points.times do |point|
 
@@ -60,7 +61,8 @@ module Prawn
                   starting = (prawn.bounds.left + (point * width_per_point))
 
                   x_position = ( (starting + (series_offset * width) ).to_f - (width / 2.0))
-                  y_position = (point_height_percentage(@series[series_index].values[point]) * @plot_area_height).to_f
+                  proportional_height = (point_height_percentage(@series[series_index].values[point]) * @plot_area_height).to_f
+                  y_position = [proportional_height, min_height].max
 
                   prawn.fill_and_stroke_line([ x_position ,0], [x_position ,y_position]) unless @series[series_index].values[point].zero?
 
