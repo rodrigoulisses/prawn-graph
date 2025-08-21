@@ -66,6 +66,15 @@ module Prawn
 
                   prawn.fill_and_stroke_line([ x_position ,0], [x_position ,y_position]) unless @series[series_index].values[point].zero?
 
+                  prawn.fill_color = "000000"
+                  prawn.text_box "#{@series[series_index].values[point]}",
+                                 at: [x_position - 6, y_position + 10],
+                                 height: 5,
+                                 overflow: :shrink_to_fit,
+                                 width: 12,
+                                 valign: :bottom,
+                                 align: :right
+
                   mark_average_line(series_index)
                   max_marked = mark_maximum_point(series_index, point, max_marked, x_position, y_position)
                   min_marked = mark_minimum_point(series_index, point, min_marked, x_position, y_position)
@@ -76,6 +85,16 @@ module Prawn
             end
             render_axes
           end
+        end
+
+        def render_axes
+          prawn.stroke_color  = @canvas.theme.axes
+          prawn.fill_color  = @canvas.theme.axes
+          prawn.stroke_horizontal_line(0, @plot_area_width, at: 0)
+          prawn.stroke_vertical_line(0, @plot_area_height, at: 0)
+          prawn.fill_and_stroke_ellipse [ 0,0], 1
+
+          add_x_axis_labels
         end
 
         def max
