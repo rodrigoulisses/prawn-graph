@@ -76,7 +76,8 @@ module Prawn
         # the series.
         #
         def point_height_percentage(value)
-          ((BigDecimal(value, 10)/BigDecimal(@canvas.series.collect(&:max).max, 10)) * BigDecimal(1)).round(2) rescue 0
+          result = ((BigDecimal(value, 10)/BigDecimal(@canvas.series.collect(&:max).max, 10)) * BigDecimal(1)).round(2) rescue 0
+          result.nan? ? 0 : result.to_f
         end
 
         def prawn
